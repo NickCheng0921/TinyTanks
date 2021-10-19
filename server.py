@@ -38,18 +38,27 @@ async def server(websocket, path):
                         payload = f"{msg_id_l}02{id_l} > {msg_l}\n"
                         await websocket.send(payload)
 
+            if(content == "03"):
+                 for msg_id_l, id_l, msg_l in msg_list:
+                    if(msg_id_l not in my_msg_id_list):
+                        my_msg_id_list.append(msg_id_l)
+                        payload = f"{msg_id_l}02{id_l} > {msg_l}\n"
+                        await websocket.send(payload)
+
     except Exception:
         print("User left")
         return
 
 
 def decode_msg(message):
-    if(len(message) < 11):
-        return 
-
+    #always need an id, and a message type, content can be optional
     id = message[0:8]
     type = message[8:10]
-    content = message[10:]
+    content = None 
+    try:
+        content = message[10:]
+    except Exception:
+        pass
 
     return id, type, content
 
