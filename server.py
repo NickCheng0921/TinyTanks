@@ -1,21 +1,32 @@
+from datetime import *
 import asyncio
 import websockets
-import time
 import sys
 
 # https://limecoda.com/how-to-build-basic-websocket-server-python/
+print("Running Server...")
 server_id = "XSERVERX"
+msg_list = []
 
 async def server(websocket, path):
-    print("Running Server...")
+    print("User joined")
     # Get received data from websocket
-    data = await websocket.recv()
-    id, content, msg = decode_msg(data.decode("utf-8"))
-    print(f"ID {id} CONTENT {content} MSG {msg}")
+    try:
+        while(True):
+            data = await websocket.recv()
+            id, content, msg = decode_msg(data.decode("utf-8"))
+            msg_list.append( (id, msg) )
 
-    if(content == "01"):
-        payload = server_id + "02" + msg
-        await websocket.send(payload)
+            if(content == "01"):
+
+                for id_l, msg_l in msg_list:
+                    #time = datetime.strptime(datetime.now().strftime("%d/%m/%y %H:%M"), "%d/%m/%y %H:%M")
+                    payload = f"{server_id}02{id_l} > {msg_l}\n"
+                    await websocket.send(payload)
+    except Exception:
+        print("User left")
+        return
+
 
 def decode_msg(message):
     if(len(message) < 11):
