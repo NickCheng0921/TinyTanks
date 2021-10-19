@@ -9,6 +9,10 @@ var connect_counter := 0
 var test_id = "XCLIENTX"
 onready var lobby = get_tree().get_root().get_node("Lobby")
 
+#timer values
+export var check_msg_timer_val := 1.5
+onready var check_msg_time = check_msg_timer_val
+
 func _ready():
 	# Connect base signals to get notified of connection open, close, and errors.
 	_client.connect("connection_closed", self, "_closed")
@@ -52,12 +56,19 @@ func _on_data():
 		receive_chat(msg)
 
 func _process(delta):
-	# Call this in _process or _physics_process. Data transfer, and signals
-	# emission will only happen when calling this function.
+	check_msg_time -= delta
+	if(check_msg_time < 0):
+		check_msg_time = check_msg_timer_val
+		check_chat()
+		
 	_client.poll()
 
 func send_chat(text):
 	var payload = test_id + "01" + text
+	_client.get_peer(1).put_packet(payload.to_utf8())
+	
+func check_chat():
+	var payload = test_id + "03"
 	_client.get_peer(1).put_packet(payload.to_utf8())
 	
 func receive_chat(msg):
