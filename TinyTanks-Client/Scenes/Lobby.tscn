@@ -14,10 +14,10 @@ margin_right = 640.0
 margin_bottom = 440.0
 
 [node name="receiveChatBox" type="RichTextLabel" parent="."]
-margin_left = 329.451
-margin_top = 249.436
-margin_right = 616.451
-margin_bottom = 378.436
+margin_left = 329.0
+margin_top = 86.0
+margin_right = 616.0
+margin_bottom = 379.0
 
 [node name="sendChatButton" type="Button" parent="."]
 margin_left = 645.0

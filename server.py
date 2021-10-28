@@ -18,6 +18,7 @@ async def server(websocket, path):
     try:
         while(True):
             data = await websocket.recv()
+            print("MSG:", data.decode("utf-8"))
             id, content, msg = decode_msg(data.decode("utf-8"))
 
             if(content == "01"):
