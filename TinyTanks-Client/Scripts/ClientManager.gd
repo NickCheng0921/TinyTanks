@@ -1,5 +1,8 @@
 extends Node
 
+#https://generalistprogrammer.com/godot/godot-webassembly-export-to-web-html5-tutorial/
+#host local server to run binary
+
 # The URL we will connect to
 #export var websocket_url = "ws://localhost:8000"
 #location of my GCP instance
