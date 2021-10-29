@@ -21,5 +21,7 @@ Anonymous chat functionality
 ## Planned Features
 
 Basic Turn-Based combat system
+
 Login Authentication
+
 Better UI
