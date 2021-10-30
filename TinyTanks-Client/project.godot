@@ -19,6 +19,12 @@ config/name="TinyTanks-Client"
 run/main_scene="res://Scenes/Lobby.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1366
+window/size/height=768
+window/size/resizable=false
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
