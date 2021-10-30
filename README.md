@@ -27,3 +27,7 @@ Basic Turn-Based combat system
 Login Authentication
 
 Better UI
+
+## How does the Application Work?
+
+![alt text](https://github.com/NickCheng0921/TinyTanks/blob/main/design_doc.png)
