@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/ClientManager.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,12 +20,19 @@ margin_top = 86.0
 margin_right = 616.0
 margin_bottom = 379.0
 
-[node name="sendChatButton" type="Button" parent="."]
-margin_left = 645.0
-margin_top = 375.0
-margin_right = 732.0
-margin_bottom = 442.0
-text = "send chat"
-
 [node name="ClientManager" type="Node" parent="."]
 script = ExtResource( 2 )
+
+[node name="serverStatusLabel" type="RichTextLabel" parent="."]
+margin_left = 786.0
+margin_top = 17.0
+margin_right = 942.0
+margin_bottom = 33.0
+text = "not connected to server"
+
+[node name="connected icon" type="Sprite" parent="."]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 965.631, 24.2355 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+[connection signal="text_changed" from="chatInputBox" to="." method="_on_chatInputBox_text_changed"]

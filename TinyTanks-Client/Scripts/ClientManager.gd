@@ -13,8 +13,12 @@ var _client = WebSocketClient.new()
 var connect_counter := 0
 var test_id = "XCLIENTX"
 onready var lobby = get_tree().get_root().get_node("Lobby")
+var connectedIcon
+var serverStatusLabel
 
 func _ready():
+	connectedIcon = get_tree().get_root().get_node("Lobby/connected icon")
+	serverStatusLabel = get_tree().get_root().get_node("Lobby/serverStatusLabel")
 	# Connect base signals to get notified of connection open, close, and errors.
 	_client.connect("connection_closed", self, "_closed")
 	_client.connect("connection_error", self, "_connect_error")
@@ -34,18 +38,27 @@ func _connect_error(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
 	print("Failed to connect (connection error): ", was_clean)
+	serverStatusLabel.clear()
+	serverStatusLabel.add_text("not connected to server")
+	connectedIcon.modulate = Color(255, 0, 0)
 	set_process(false)
 
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
 	print("Closed, clean: ", was_clean)
+	serverStatusLabel.clear()
+	serverStatusLabel.add_text("not connected to server")
+	connectedIcon.modulate = Color(255, 0, 0)
 	set_process(false)
 
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
 	# sub-protocol (which is optional)
 	print("Connected with protocol: ", proto)
+	connectedIcon.modulate = Color(0, 255, 0)
+	serverStatusLabel.clear()
+	serverStatusLabel.add_text("connected to server")
 
 func _on_data():
 	print("received a message")
@@ -64,7 +77,6 @@ func _on_data():
 		receive_chat(msg)
 
 func _process(delta):
-		
 	_client.poll()
 
 func send_chat(text):
