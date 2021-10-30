@@ -4,11 +4,13 @@
 
 ### 1. Open Command Prompt/Terminal
 
-### 2. Navigate to the TinyTanks-Export folder
+### 2. Navigate into the Your-File-Path/tinytanks/TinyTanks-Export folder in the Command Prompt/Terminal
 
 ### 3. run the command "python -m http.server"
 
 ### 4. open browser and navigate to "localhost:8000"
+
+### 5. in browser, select the index.html file
 
 ## Overview
 
