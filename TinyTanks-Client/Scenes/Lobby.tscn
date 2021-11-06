@@ -38,6 +38,6 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
 [node name="game_border" type="Sprite" parent="."]
-position = Vector2( 687, 378 )
+position = Vector2( 682, 384 )
 texture = ExtResource( 4 )
 [connection signal="text_changed" from="chatInputBox" to="." method="_on_chatInputBox_text_changed"]
