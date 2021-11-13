@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Scripts/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/ClientManager.gd" type="Script" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/game_border.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/game_border.png" type="Texture" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
 
 [node name="Lobby" type="Node2D"]
 script = ExtResource( 1 )
@@ -24,6 +24,41 @@ margin_bottom = 545.344
 [node name="ClientManager" type="Node" parent="."]
 script = ExtResource( 2 )
 
+[node name="game_border" type="Sprite" parent="."]
+position = Vector2( 682, 384 )
+texture = ExtResource( 3 )
+
+[node name="login" type="Node2D" parent="."]
+
+[node name="login sprite" type="Sprite" parent="login"]
+modulate = Color( 0.0745098, 0.0666667, 0.0666667, 1 )
+position = Vector2( 677.983, 382.011 )
+scale = Vector2( 24, 12 )
+texture = ExtResource( 4 )
+
+[node name="username box" type="TextEdit" parent="login"]
+margin_left = 499.972
+margin_top = 340.971
+margin_right = 849.972
+margin_bottom = 380.971
+rect_min_size = Vector2( 10, 0 )
+hint_tooltip = "username"
+
+[node name="password box" type="TextEdit" parent="login"]
+margin_left = 499.573
+margin_top = 400.093
+margin_right = 849.573
+margin_bottom = 440.093
+rect_min_size = Vector2( 350, 0 )
+hint_tooltip = "password"
+
+[node name="password button" type="Button" parent="login"]
+margin_left = 589.0
+margin_top = 457.0
+margin_right = 757.0
+margin_bottom = 477.0
+text = "LOGIN"
+
 [node name="serverStatusLabel" type="RichTextLabel" parent="."]
 margin_left = 1152.12
 margin_top = 33.6984
@@ -35,9 +70,6 @@ text = "not connected to server"
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 1329.03, 40.9339 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
-
-[node name="game_border" type="Sprite" parent="."]
-position = Vector2( 682, 384 )
 texture = ExtResource( 4 )
 [connection signal="text_changed" from="chatInputBox" to="." method="_on_chatInputBox_text_changed"]
+[connection signal="button_up" from="login/password button" to="." method="_on_password_button_button_up"]

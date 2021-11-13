@@ -7,11 +7,12 @@ extends Node
 #export var websocket_url = "ws://localhost:8000"
 #location of my GCP instance
 export var websocket_url = "ws://35.219.130.83:8000"
+#export var websocket_url = "ws://127.0.0.1:8000"
 
 # Our WebSocketClient instance
 var _client = WebSocketClient.new()
 var connect_counter := 0
-var test_id = "XCLIENTX"
+var uid = "XCLIENTX"
 onready var lobby = get_tree().get_root().get_node("Lobby")
 var connectedIcon
 var serverStatusLabel
@@ -69,18 +70,28 @@ func _on_data():
 	#parse then dmux message
 	var payload = _client.get_peer(1).get_packet().get_string_from_utf8()
 
-	#var id = payload.substr(0, 8)
+	var id = payload.substr(0, 8)
 	var type = payload.substr(8, 2)
 	var msg = payload.substr(10, payload.length()-10)
 
 	if(type=="02"):
 		receive_chat(msg)
+		
+	if(type=="03"):
+		uid = msg;
+		while(uid.length() < 8):
+			uid += " "
+		get_tree().get_root().get_node("Lobby/login").hide()
 
 func _process(delta):
 	_client.poll()
 
 func send_chat(text):
-	var payload = test_id + "01" + text
+	var payload = uid + "01" + text
+	_client.get_peer(1).put_packet(payload.to_utf8())
+	
+func send_generic(id, type, content):
+	var payload = id + type + content
 	_client.get_peer(1).put_packet(payload.to_utf8())
 	
 func receive_chat(msg):
