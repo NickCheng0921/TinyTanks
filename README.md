@@ -1,4 +1,4 @@
-# TinyTanks
+# TinyTanks - under redesign, switching to React
 
 ## How to Launch
 
